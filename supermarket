@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var names = new Queue<string>();
+            var input = Console.ReadLine();
+            names.Enqueue(input);
+            while (input != "End")
+            {
+                input = Console.ReadLine();
+                if (input == "Paid")
+                {
+                    while (names.Count > 0)
+                    {
+                        Console.WriteLine(names.Dequeue());
+                    }
+                    
+                }
+                if (input == "End")
+                {
+                    var paid = names.Contains("Paid");
+                    if (paid)
+                    {
+                        names.Dequeue();
+                        Console.WriteLine("{0} people remaining.", names.Count());
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} people remaining.", names.Count());
+                    }
+                   
+                }
+                else
+                {
+                    names.Enqueue(input);
+                    
+                }
+
+            }
+           
+        }
+    }
+}
