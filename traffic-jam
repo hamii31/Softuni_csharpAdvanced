@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var cars = new Queue<string>();
+            var passingCars = int.Parse(Console.ReadLine());
+            var input = Console.ReadLine();
+            var carpassed = 0;
+            while (input != "end")
+            {
+                
+                if (input == "green")
+                {
+                    
+                    for (int i = 0; i < passingCars; i++)
+                    {
+                        if (cars.Count > 0)
+                        {
+                            Console.WriteLine(cars.Dequeue() + " passed!");
+                            carpassed++;
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    cars.Enqueue(input);
+                }
+                input = Console.ReadLine();
+               
+            }
+            Console.WriteLine($"{carpassed} cars passed the crossroads.");
+        }
+    }
+}
