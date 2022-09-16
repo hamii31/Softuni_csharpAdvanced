@@ -22,7 +22,14 @@ namespace StacksAndQueues
                 }
                 if (command == "2")
                 {
-                    queries.Pop();
+                    if (queries.Count > 0)
+                    {
+                        queries.Pop();
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
                 if (command == "3")
                 {
