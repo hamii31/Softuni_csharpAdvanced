@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var text = Console.ReadLine();
+            char[] input = text.ToCharArray();
+            var stack = new Stack<char>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                var chr = input[i];
+                if (chr == '[' || chr == '{' || chr == '(')
+                {
+                    stack.Push(chr);
+                }
+                else if (chr == ']' || chr == '}' || chr == ')')
+                {
+                    if (!stack.Any())
+                    {
+                        Console.WriteLine("NO");
+                        return;
+                    }
+                    switch (chr)
+                    {
+                        case ']':
+                            if (stack.Pop() != '[')
+                            {
+                                Console.WriteLine("NO");
+                                return;
+                            }
+                            break;
+                        case '}':
+                            if (stack.Pop() != '{')
+                            {
+                                Console.WriteLine("NO");
+                                return;
+                            }
+                            break;
+                        case ')':
+                            if (stack.Pop() != '(')
+                            {
+                                Console.WriteLine("NO");
+                                return;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            if (!stack.Any())
+            {
+                Console.WriteLine("YES");
+            }
+            else
+            {
+                Console.WriteLine("NO");
+            }
+        }
+    }
+}
