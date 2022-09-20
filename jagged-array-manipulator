@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace maximal_sum
+namespace jagged_arrays
 {
     class Program
     {
