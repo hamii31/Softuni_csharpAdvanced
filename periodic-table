@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var elements = new HashSet<string>();
+            var N = int.Parse(Console.ReadLine());
+            for (int i = 0; i < N; i++)
+            {
+                var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in input)
+                {
+                    elements.Add(item);
+                }
+            }
+            elements = elements.OrderBy(x => x).ToHashSet();
+            foreach (var item in elements)
+            {
+                Console.Write(item + " ");
+            }
+        }   
+    }
+}
