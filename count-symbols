@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var input = Console.ReadLine();
+            var ch = input.ToCharArray();
+            var counts = new SortedDictionary<char, int>();
+            foreach (var item in ch)
+            {
+                if (counts.ContainsKey(item))
+                {
+                    counts[item]++;
+                }
+                else
+                {
+                    counts[item] = 1;
+                }
+            }
+            foreach (var item in counts)
+            {
+                Console.WriteLine($"{item.Key}: {item.Value} time/s");
+            }
+
+        }
+    }
+}
