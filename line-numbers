@@ -10,10 +10,10 @@ namespace OddLines
             string inputFilePath = @"..\..\..\Files\input.txt";
             string outputFilePath = @"..\..\..\Files\output.txt";
 
-            ExtractOddLines(inputFilePath, outputFilePath);
+            RewriteFileWithLineNumbers(inputFilePath, outputFilePath);
         }
 
-        private static void ExtractOddLines(string inputFilePath, string outputFilePath)
+        private static void RewriteFileWithLineNumbers(string inputFilePath, string outputFilePath)
         {
             using (var reader = new StreamReader(inputFilePath))
             {
