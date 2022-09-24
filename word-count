@@ -24,8 +24,7 @@ namespace SFD
                 {
                     using (var writer = new StreamWriter(outputPath))
                     {
-                        //var words = File.ReadAllLines(wordPath);
-
+                       
                         var words = new List<string>();
                         while (!wordreader.EndOfStream)
                         {
@@ -37,17 +36,7 @@ namespace SFD
                             }
                         }
                         var count = new Dictionary<string, int>();
-                        //foreach (var item in words)
-                        //{
-                        //    if (count.ContainsKey(item))
-                        //    {
-                        //        count[item]++;
-                        //    }
-                        //    else
-                        //    {
-                        //        count[item] = 1;
-                        //    }
-                        //}
+                     
                         while (!textReader.EndOfStream)
                         {
                             var line = textReader.ReadLine();
