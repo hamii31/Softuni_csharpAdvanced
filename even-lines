@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace SFD
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            var inputFile = @"..\..\..\Files\text.txt";
+            var stack = new Stack<char>();
+            using (var reader = new StreamReader(inputFile))
+            {
+                var row = 0; 
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    if (row++ % 2 == 0)
+                    {
+                        var charsToRemove = new string[] {"-", ",", ".", "!", "?" };
+                        foreach (var c in charsToRemove)
+                        {
+                            line = line.Replace(c, "@");
+                        }
+                        string[] a = line.Split(' ');
+                        Array.Reverse(a);
+                        for (int i = 0; i <= a.Length - 1; i++)
+                        {
+                            Console.Write(a[i] + "" + ' ');
+                        }
+                        Console.WriteLine();
+                    }
+                }
+            }
+            
+           
+        }
+
+    }
+}
