@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Func<string, int> parser = n => int.Parse(n);
+            
+            var people = new Dictionary<string, int>();
+            var N = parser(Console.ReadLine());
+            for (int i = 0; i < N; i++)
+            {
+                var input = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries);
+                people.Add(input[0], parser(input[1]));
+            }
+            var condition = Console.ReadLine();
+            var treshold = parser(Console.ReadLine());
+            var format = Console.ReadLine();
+
+            if (format == "name age")
+            {
+                Action<string, int> print = (n, x) => Console.WriteLine($"{n} - {x}");
+                if (condition == "younger")
+                {
+                    foreach (var (name, age) in people)
+                    {
+                        if (age < treshold)
+                        {
+                            print(name, age);
+                        }
+                    }
+                }
+                else if (condition == "older")
+                {
+                    foreach (var (name, age) in people)
+                    {
+                        if (age >= treshold)
+                        {
+                            print(name, age);
+                        }
+                    }
+                }
+                
+            }
+            else if (format == "name")
+            {
+                Action<string> print = n => Console.WriteLine(n);
+                if (condition == "younger")
+                {
+                    foreach (var (name, age) in people)
+                    {
+                        if (age < treshold)
+                        {
+                            print(name);
+                        }
+                    }
+                }
+                else if (condition == "older")
+                {
+                    foreach (var (name, age) in people)
+                    {
+                        if (age >= treshold)
+                        {
+                            print(name);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Action<int> print = x => Console.WriteLine(x);
+                if (condition == "younger")
+                {
+                    foreach (var (name, age) in people)
+                    {
+                        if (age < treshold)
+                        {
+                            print(age);
+                        }
+                    }
+                }
+                else if (condition == "older")
+                {
+                    foreach (var (name, age) in people)
+                    {
+                        if (age >= treshold)
+                        {
+                            print(age);
+                        }
+                    }
+                }
+            }
+
+           
+        }
+
+    }
+}
