@@ -1,0 +1,20 @@
+using System;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Func<double, double> vat = n => n + (n * 0.2);
+            Action<double> print = n => Console.WriteLine($"{n:f2}");
+            var prices = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries)
+                        .Select(double.Parse).ToArray();
+            for (int i = 0; i < prices.Length; i++)
+            {
+                print(vat(prices[i]));
+            }
+        }
+    }
+}
