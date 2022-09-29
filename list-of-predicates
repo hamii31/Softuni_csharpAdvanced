@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var range = int.Parse(Console.ReadLine());
+            var predicates = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToList();
+            Predicate<int> divisible = x => x % 2 == 0;
+            for (int i = 1; i <= range; i++)
+            {
+                foreach (var item in predicates)
+                {
+                    divisible = x => x % item == 0;
+                }
+                if (divisible(i))
+                {
+                    Console.Write(i + " ");
+                }
+
+            }
+        }
+    }
+}
