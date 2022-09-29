@@ -1,0 +1,17 @@
+using System;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                 .Select(int.Parse).ToArray();
+            Func<int[], int> smallest = numbers => numbers.Min();
+            Console.WriteLine(smallest(numbers));
+            //Console.WriteLine(numbers.Min());
+        }
+    }
+}
