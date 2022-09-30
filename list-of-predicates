@@ -12,18 +12,28 @@ namespace functional_programing
             var predicates = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToList();
             Predicate<int> divisible = x => x % 2 == 0;
-            for (int i = 1; i <= range; i++)
+            var numbers = Enumerable.Range(1, range).ToArray();
+            var divisibleNumbers = new List<int>();
+            foreach (var item in numbers)
             {
-                foreach (var item in predicates)
+                bool div = true;
+                foreach (var match in predicates)
                 {
-                    divisible = x => x % item == 0;
+                    divisible = x => x % match == 0;
+                    if (!divisible(item))
+                    {
+                        div = false;
+                        break;
+                    }
+                   
                 }
-                if (divisible(i))
+                if (div)
                 {
-                    Console.Write(i + " ");
+                    divisibleNumbers.Add(item);
                 }
-
+                
             }
+            Console.WriteLine(string.Join(" ", divisibleNumbers));
         }
     }
 }
