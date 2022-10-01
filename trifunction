@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var num = int.Parse(Console.ReadLine());
+            var names = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            Func<string, int, bool> checker = (name, num) => name.Sum(ch => ch) >= num;
+            Func<string[], int, Func<string, int, bool>, string> getName = (names, num, match)
+                => names.FirstOrDefault(name => match(name, num));
+            Console.WriteLine(getName(names, num, checker));
+        }
+        
+    }
+}
