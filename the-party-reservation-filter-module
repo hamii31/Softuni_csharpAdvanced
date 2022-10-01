@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var totalNames = new List<string>(Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries));
+            var originalNames = new List<string>(totalNames);
+            while (true)
+            {
+                var input = Console.ReadLine().Split(";", StringSplitOptions.RemoveEmptyEntries);
+                if (input[0] == "Print")
+                {
+                    break;
+                }
+                var filter = input[1];
+                var value = input[2];
+                if (input[0] == "Add filter")
+                {
+                    totalNames.RemoveAll(GetPredicate(filter, value));
+                }
+                else
+                {
+
+                    var names = originalNames.FindAll(GetPredicate(filter, value));
+                    var index = originalNames.FindIndex(GetPredicate(filter, value));
+                    if (index - 1 >= 0)
+                    {
+                        totalNames.InsertRange(index - 1, names);
+                    }
+                    else
+                    {
+                        index = 0;
+                        totalNames.InsertRange(index, names);
+                    }
+                }
+            }
+            Console.WriteLine(string.Join(" ", totalNames));
+        }
+        static Predicate<string> GetPredicate(string filter, string value)
+        {
+            switch (filter)
+            {
+                case "Starts with":
+                        return p => p.StartsWith(value);
+                case "Ends with":
+                        return p => p.EndsWith(value);
+                case "Length":
+                        return p => p.Length == int.Parse(value);
+                case "Contains":
+                    return p => p.Contains(value);
+                default:
+                    return default(Predicate<string>);
+            }
+        }
+        
+    }
+}
