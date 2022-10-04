@@ -1,0 +1,54 @@
+using System;
+
+namespace DefiningClasses
+{
+    public class StartUp
+    {
+       static void Main(string[] args)
+        {
+            Person person1 = new Person();
+            Console.WriteLine($"{person1.Name} - {person1.Age} years old");
+
+            Person person2 = new Person();
+            person2.Age = int.Parse(Console.ReadLine());
+            Console.WriteLine($"{person2.Name} - {person2.Age} years old");
+
+            Person person3 = new Person();
+            person3.Name = Console.ReadLine();
+            person3.Age = int.Parse(Console.ReadLine());
+            Console.WriteLine($"{person3.Name} - {person3.Age} years old");
+        }
+        
+    }
+    public class Person
+    {
+        private string name;
+        private int age;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
+        public Person()
+        {
+            this.Name = "No name";
+            this.Age = 1;
+        }
+        public Person(int age) : this()
+        {
+            this.Name = "No name";
+            this.Age = age;
+        }
+        public Person(string name, int age) : this()
+        {
+            this.Name = name;
+            this.Age = age;
+        }
+    }
+}
