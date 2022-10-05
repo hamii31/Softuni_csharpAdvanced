@@ -38,4 +38,53 @@ namespace RawData
             }
         }
     }
+    public class Car
+    {
+        public string Model { get; set; }
+        public Cargo Cargo { get; set; }
+        public Engine Engine { get; set; }
+        public Tire[] Tires { get; set; }
+        public Car(
+        string model,
+        int speed,
+        int power,
+        int weight,
+        string type,
+        double pressure1,
+        int age1,
+        double pressure2,
+        int age2,
+        double pressure3,
+        int age3,
+        double pressure4,
+        int age4
+        )
+        {
+            Model = model;
+            Cargo = new Cargo { Weight = weight, Type = type };
+            Engine = new Engine { Speed = speed, Power = power };
+            Tires = new Tire[4];
+            Tires[0] = new Tire { Pressure = pressure1, Age = age1 };
+            Tires[1] = new Tire { Pressure = pressure2, Age = age2 };
+            Tires[2] = new Tire { Pressure = pressure3, Age = age3 };
+            Tires[3] = new Tire { Pressure = pressure4, Age = age4 };
+        }
+        
+    }
+     public class Cargo
+    {
+        public int Weight { get; set; }
+        public string Type { get; set; }
+    }
+     public class Engine
+    {
+     
+        public int Speed { get; set; }
+        public int Power { get; set; }
+    }
+    public class Tire
+    {
+        public int Age { get; set; }
+        public double Pressure { get; set; }
+    }
 }
