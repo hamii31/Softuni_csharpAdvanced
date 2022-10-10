@@ -1,0 +1,49 @@
+using System;
+
+namespace GenericCountMethodStrings
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var box = new Box<double>();
+            var N = int.Parse(Console.ReadLine());
+            for (int i = 0; i < N; i++)
+            {
+                var input = double.Parse(Console.ReadLine());
+                box.Add(input);
+            }
+            var element = double.Parse(Console.ReadLine());
+            box.Comparer(element);
+        }
+    }
+    public class Box<T>
+    {
+        private List<T> box;
+        public Box()
+        {
+            box = new List<T>();
+        }
+        public void Add(T elements)
+        {
+            box.Add(elements);
+        }
+        public void Comparer(T element)
+        {
+            var occurences = 0;
+            foreach (var item in box)
+            {
+                T value1 = item;
+                T value2 = element;
+                
+                if (!EqualityComparer<T>.Default.Equals(value1, value2))
+                {
+                    occurences++;
+                }
+                
+            }
+            Console.WriteLine(occurences);
+        }
+        
+    }
+}
