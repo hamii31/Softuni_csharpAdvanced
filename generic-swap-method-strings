@@ -1,0 +1,49 @@
+using System;
+using System.Linq;
+
+namespace GenericSwapMethods
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var list = new GenericSwap<string>();
+            var N = int.Parse(Console.ReadLine());
+            for (int i = 0; i < N; i++)
+            {
+                var input = Console.ReadLine();
+                list.Add(input);
+            }
+            var positions = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            var firstToBeSwapped = positions[0];
+            var secondToBeSwapped = positions[1];
+            list.Swap(firstToBeSwapped, secondToBeSwapped);
+            list.Print();
+        }
+    }
+    public class GenericSwap<T>
+    {
+        private List<T> list;
+        public GenericSwap()
+        {
+            list = new List<T>();
+        }
+        public void Add(T element)
+        {
+            list.Add(element);
+        }
+        public void Swap(int position1, int position2)
+        {
+            T temp = list[position1];
+            list[position1] = list[position2];
+            list[position2] = temp;
+        }
+        public void Print()
+        {
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{typeof(T)}: {item}");
+            }
+        }
+    }
+}
