@@ -17,7 +17,7 @@ namespace GenericCountMethodStrings
             box.Comparer(element);
         }
     }
-    public class Box<T>
+    public class Box<T> where T : IComparable
     {
         private List<T> box;
         public Box()
