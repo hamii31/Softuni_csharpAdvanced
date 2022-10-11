@@ -6,15 +6,15 @@ namespace GenericCountMethodStrings
     {
         static void Main(string[] args)
         {
-            var box = new Box<double>();
+            var box = new Box<string>();
             var N = int.Parse(Console.ReadLine());
             for (int i = 0; i < N; i++)
             {
-                var input = double.Parse(Console.ReadLine());
+                var input = Console.ReadLine();
                 box.Add(input);
             }
-            var element = double.Parse(Console.ReadLine());
-            box.Comparer(element);
+            var element = Console.ReadLine();
+            Console.WriteLine(box.Occurances(element));
         }
     }
     public class Box<T> where T : IComparable
@@ -28,21 +28,20 @@ namespace GenericCountMethodStrings
         {
             box.Add(elements);
         }
-        public void Comparer(T element)
+        
+        public int Occurances(T element)
         {
-            var occurences = 0;
+            var occurances = 0;
+
             foreach (var item in box)
             {
-                T value1 = item;
-                T value2 = element;
-                
-                if (!EqualityComparer<T>.Default.Equals(value1, value2))
+                if (item.CompareTo(element) > 0)
                 {
-                    occurences++;
+                    occurances++;
                 }
-                
             }
-            Console.WriteLine(occurences);
+
+            return occurances;
         }
         
     }
