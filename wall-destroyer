@@ -1,0 +1,170 @@
+using System;
+using System.Linq;
+
+namespace WallDestroyer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var N = int.Parse(Console.ReadLine());
+          
+            var matrix = new char[N][];
+            for (int r = 0; r < N; r++)
+            {
+                var row = Console.ReadLine();
+                char[] chs = row.ToCharArray();
+                matrix[r] = chs;
+            }
+            var StartRow = 0;
+            var StartColumn = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int x = 0; x < matrix[i].Length; x++)
+                {
+                    if (matrix[i][x] == 'V')
+                    {
+                        StartRow = i;
+                        StartColumn = x;
+                    }
+                }
+            }
+           
+            var command = string.Empty;
+            var holes = 1;
+            var rods = 0;
+            var start = true;
+            var electrocuted = false;
+            var outside = false;
+            while (command != "End")
+            {
+                if (start)
+                {
+                    matrix[StartRow][StartColumn] = '*';
+                    start = false;
+                    continue;
+                }
+                command = Console.ReadLine();
+                if (electrocuted == true)
+                {
+                    break;
+                }
+                switch (command)
+                {
+                    case "down":
+                        if (StartRow + 1 <= N)
+                        {
+                            StartRow++;
+                        }
+                        else if (StartRow + 1 > N)
+                        {
+                            outside = true;
+                            continue;
+                        }
+                        break;
+                    case "left":
+                        if (StartColumn - 1 >= 0)
+                        {
+                            StartColumn--;
+                        }
+                        else if (StartColumn - 1 < 0)
+                        {
+                            outside = true;
+                            continue;
+                        }
+                        break;
+                    case "right":
+                        if (StartColumn + 1 <= N)
+                        {
+                            StartColumn++;
+                        }
+                        else if  (StartColumn + 1 > N)
+                        {
+                            outside = true;
+                            continue;
+                        }
+                        break;
+                    case "up":
+                        if (StartRow - 1 >= 0)
+                        {
+                            StartRow--;
+                        }
+                        else if  (StartRow - 1 < 0)
+                        {
+                            outside = true;
+                            continue;
+                        }
+                        break;
+                    default:
+                        break;
+                        
+                }
+                if (outside)
+                {
+                    outside = false;
+                }
+                if (matrix[StartRow][StartColumn] == 'C')
+                {
+                    matrix[StartRow][StartColumn] = 'E';
+                    electrocuted = true;
+                    holes++;
+                    break;
+                }
+                else if (matrix[StartRow][StartColumn] == 'R')
+                {
+                    Console.WriteLine("Vanko hit a rod!");
+                    rods++;
+                    switch (command)
+                    {
+                        case "down":
+                            StartRow--;
+                            break;
+                        case "left":
+                            StartColumn++;
+                            break;
+                        case "right":
+                            StartColumn--;
+                            break;
+                        case "up":
+                            StartRow++;
+                            break;
+                        default:
+                            break;
+                    }
+                    continue;
+                }
+                else
+                {
+                    if (command == "End")
+                    {
+                        matrix[StartRow][StartColumn] = 'V';
+                        break;
+                    }
+                    else if (matrix[StartRow][StartColumn] == '*')
+                    {
+                        Console.WriteLine($"The wall is already destroyed at position [{StartRow}, {StartColumn}]!");
+                    }
+                    else
+                    {
+                        matrix[StartRow][StartColumn] = '*';
+                        holes++;
+                    }
+                    
+                }
+                    
+            }
+            if (electrocuted)
+            {
+                Console.WriteLine($"Vanko got electrocuted, but he managed to make {holes} hole(s).");
+            }
+            else
+            {
+                Console.WriteLine($"Vanko managed to make {holes} hole(s) and he hit only {rods} rod(s).");
+            }
+            for (int r = 0; r < matrix.GetLength(0); r++) // print jagged matrix
+            {
+                Console.WriteLine(matrix[r]);
+            }
+        }
+    }
+}
