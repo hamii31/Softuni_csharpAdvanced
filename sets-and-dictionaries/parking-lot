@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var cars = new HashSet<string>();
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if (input == "END")
+                {
+                    break;
+                }
+                var splitted = input.Split(", ");
+                var command = splitted[0];             
+                var car = splitted[1];
+                if (command == "IN")
+                {
+                    cars.Add(car);
+                }
+                else if (command == "OUT")
+                {
+                    cars.Remove(car);
+                }
+            }
+            if (!cars.Any())
+            {
+                Console.WriteLine("Parking Lot is Empty");
+            }
+            else if(cars.Any())
+            {
+                foreach (var item in cars)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
+    }
+}
