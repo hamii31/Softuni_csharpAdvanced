@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var stack = new Stack<int>(Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse));
+            var divisionCheck = int.Parse(Console.ReadLine());
+            Predicate<int> divisible = x => x % divisionCheck == 0;
+            //var outputQueue = new Queue<int>();
+            foreach (var item in stack)
+            {
+
+                if (divisible(item))
+                {
+                   
+                }
+                else
+                {
+                    Console.Write(item + " ");
+                }
+            }
+        }
+    }
+}
