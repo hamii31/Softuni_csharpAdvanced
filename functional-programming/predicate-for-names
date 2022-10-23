@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var length = int.Parse(Console.ReadLine());
+            var names = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+            Predicate<string> longEnough = x => x.Count() <= length;
+
+            foreach (var item in names)
+            {
+                if (longEnough(item))
+                {
+                    Console.WriteLine(item);
+                }
+                
+            }
+        }
+    }
+}
