@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var N = int.Parse(Console.ReadLine());
+            var queries = new Stack<int>();
+            for (int i = 0; i < N; i++)
+            {
+                var input = Console.ReadLine().Split();
+                var command = input[0];
+                if (command == "1")
+                {
+                    var number = Convert.ToInt32(input[1]);
+                    queries.Push(number);
+                }
+                if (command == "2")
+                {
+                    if (queries.Count > 0)
+                    {
+                        queries.Pop();
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                if (command == "3")
+                {
+                    Console.WriteLine(queries.Max());
+                }
+                if (command == "4")
+                {
+                    Console.WriteLine(queries.Min());
+                }
+            }
+            var printStack = new Stack<string>();
+            while(queries.Count > 0)
+            {
+                var str = Convert.ToString(queries.Pop());
+                printStack.Push(str);
+                if (queries.Count > 0)
+                {
+                    Console.Write(printStack.Pop() + ", ");
+                }
+                else
+                {
+                    Console.Write(printStack.Pop());
+                }
+            }
+            
+        }
+    }
+}
