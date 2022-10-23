@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FoodFinder
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var vowels = new Queue<char>(Console.ReadLine().Split(" ",StringSplitOptions.RemoveEmptyEntries).Select(char.Parse));
+            var consonants = new Stack<char>(Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(char.Parse));
+
+            var pear = new HashSet<char> { 'p', 'e', 'a', 'r' };
+            var hasPear = new HashSet<char>();
+
+            var flour = new HashSet<char> { 'f', 'l', 'o', 'u', 'r' };
+            var hasFlour = new HashSet<char>();
+
+            var pork = new HashSet<char> { 'p', 'o', 'r', 'k' };
+            var hasPork = new HashSet<char>();
+
+            var olive = new HashSet<char> { 'o', 'l', 'i', 'v', 'e' };
+            var hasOlive = new HashSet<char>();
+
+            while (consonants.Count > 0)
+            {
+                if (pear.Contains(consonants.Peek()))
+                {
+                    hasPear.Add(consonants.Peek());
+                }
+                if (flour.Contains(consonants.Peek()))
+                {
+                    hasFlour.Add(consonants.Peek());
+                }
+                if (pork.Contains(consonants.Peek()))
+                {
+                    hasPork.Add(consonants.Peek());
+                }
+                if (olive.Contains(consonants.Peek()))
+                {
+                    hasOlive.Add(consonants.Peek());
+                }
+                consonants.Pop();
+            }
+            while (vowels.Count > 0)
+            {
+                if (pear.Contains(vowels.Peek()))
+                {
+                    hasPear.Add(vowels.Peek());
+                }
+                if (flour.Contains(vowels.Peek()))
+                {
+                    hasFlour.Add(vowels.Peek());
+                }
+                if (pork.Contains(vowels.Peek()))
+                {
+                    hasPork.Add(vowels.Peek());
+                }
+                if (olive.Contains(vowels.Peek()))
+                {
+                    hasOlive.Add(vowels.Peek());
+                }
+                vowels.Dequeue();
+            }
+
+           
+
+            var words = 0;
+            var wordsToPrint = new HashSet<string>();
+            if (pear.Count == hasPear.Count)
+            {
+                words++;
+                wordsToPrint.Add("pear");
+            }
+            if (flour.Count == hasFlour.Count)
+            {
+                words++;
+                wordsToPrint.Add("flour");
+            }
+            if (pork.Count == hasPork.Count)
+            {
+                words++;
+                wordsToPrint.Add("pork");
+            }
+            if (olive.Count == hasOlive.Count)
+            {
+                words++;
+                wordsToPrint.Add("olive");
+            }
+            Console.WriteLine($"Words found: {words}");
+            foreach (var item in wordsToPrint)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+}
