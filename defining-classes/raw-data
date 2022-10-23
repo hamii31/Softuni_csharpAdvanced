@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace RawData
+{
+    public class StartUp
+    {
+        static void Main(string[] args)
+        {
+            var cars = new List<Car>();
+            var N = int.Parse(Console.ReadLine());
+            for (int i = 0; i < N; i++)
+            {
+                var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                Car car = new Car(input[0], int.Parse(input[1]), int.Parse(input[2]), int.Parse(input[3]), input[4]
+                    , double.Parse(input[5]), int.Parse(input[6]), double.Parse(input[7]), int.Parse(input[8])
+                    , double.Parse(input[9]), int.Parse(input[10]), double.Parse(input[11]), int.Parse(input[12]));
+
+                cars.Add(car);
+            }
+            var command = Console.ReadLine();
+            string[] output;
+            if (command == "fragile")
+            {
+                output = cars.Where(c => c.Cargo.Type == "fragile" && c.Tires.Any(p => p.Pressure < 1))
+                .Select(c => c.Model).ToArray();
+            }
+            else
+            { 
+                output = cars.Where(c => c.Cargo.Type == "flammable" && c.Engine.Power > 250).Select(c => c.Model)
+                    .ToArray();
+            }
+            foreach (var item in output)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+    public class Car
+    {
+        public string Model { get; set; }
+        public Cargo Cargo { get; set; }
+        public Engine Engine { get; set; }
+        public Tire[] Tires { get; set; }
+        public Car(
+        string model,
+        int speed,
+        int power,
+        int weight,
+        string type,
+        double pressure1,
+        int age1,
+        double pressure2,
+        int age2,
+        double pressure3,
+        int age3,
+        double pressure4,
+        int age4
+        )
+        {
+            Model = model;
+            Cargo = new Cargo { Weight = weight, Type = type };
+            Engine = new Engine { Speed = speed, Power = power };
+            Tires = new Tire[4];
+            Tires[0] = new Tire { Pressure = pressure1, Age = age1 };
+            Tires[1] = new Tire { Pressure = pressure2, Age = age2 };
+            Tires[2] = new Tire { Pressure = pressure3, Age = age3 };
+            Tires[3] = new Tire { Pressure = pressure4, Age = age4 };
+        }
+        
+    }
+     public class Cargo
+    {
+        public int Weight { get; set; }
+        public string Type { get; set; }
+    }
+     public class Engine
+    {
+     
+        public int Speed { get; set; }
+        public int Power { get; set; }
+    }
+    public class Tire
+    {
+        public int Age { get; set; }
+        public double Pressure { get; set; }
+    }
+}
