@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace StacksAndQueues
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var N = int.Parse(Console.ReadLine());
+            var text = new StringBuilder();
+            var memory = new Stack<string>();
+            memory.Push(string.Empty);
+            for (int i = 0; i < N; i++)
+            {
+                var input = Console.ReadLine().Split();
+                var command = input[0];
+
+                if (command == "1")
+                {
+                    var str = input[1];
+                    text.Append(str);
+                    memory.Push(text.ToString()); 
+                }
+                else if (command == "2")
+                {
+                    var count = Convert.ToInt32(input[1]);
+                    text = text.Remove(text.Length - count, count);
+                    memory.Push(text.ToString());
+                }
+                else if (command == "3")
+                {
+                    var index = Convert.ToInt32(input[1]);
+                    if (index >= 0 && index <= text.Length)
+                    {
+                        Console.WriteLine(text[index - 1]);
+                    }
+                }
+                else if (command == "4")
+                {
+                    memory.Pop();
+                    var prev = memory.Peek();
+                    text = new StringBuilder(prev);
+                }
+            }
+        }
+    }
+}
