@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var rows = int.Parse(Console.ReadLine()); // height
+            long[][] jagged = new long[rows][];
+            var column = 1; // width;
+            for (long r = 0; r < rows; r++)
+            {
+                jagged[r] = new long[column];
+                long[] currentRow = jagged[r];
+                currentRow[0] = 1;
+                currentRow[currentRow.Length - 1] = 1;
+                column++;
+                if (currentRow.Length > 2)
+                {
+                    for (int i = 1; i < currentRow.Length - 1; i++)
+                    {
+                        long[] previousRow = jagged[r - 1];
+                        long previousRowSum = previousRow[i] + previousRow[i - 1];
+                        currentRow[i] = previousRowSum;
+                    }
+                }
+            }
+            foreach (long[] row in jagged)
+            {
+                Console.WriteLine(string.Join(" ", row));
+            }
+        }
+    }
+}
