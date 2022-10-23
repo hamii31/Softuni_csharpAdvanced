@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace functional_programing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            var numbers = new List<int>(Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToList());
+            Action<List<int>> add = x =>
+            {
+                for (int i = 0; i < numbers.Count; i++)
+                {
+                    numbers[i]++;
+                }
+            };
+            Action<List<int>> multiply = x =>
+            {
+                for (int i = 0; i < numbers.Count; i++)
+                {
+                    numbers[i] *= 2;
+                }
+            };
+            Action<List<int>> subtract = x =>
+            {
+                for (int i = 0; i < numbers.Count; i++)
+                {
+                    numbers[i]--;
+                }
+            };
+            Action<List<int>> print = x =>
+            {
+                Console.WriteLine(string.Join(" ", numbers));
+            };
+            var command = Console.ReadLine();
+            while (command != "end")
+            {
+                if (command == "end")
+                {
+                    break;
+                }
+                if (command == "add")
+                {
+                    add(numbers);
+                }
+                else if (command == "multiply")
+                {
+                    multiply(numbers);
+                }
+                else if (command == "subtract")
+                {
+                    subtract(numbers);
+                }
+                else if (command == "print")
+                {
+                    print(numbers);
+                }
+                command = Console.ReadLine();
+            }
+        }
+    }
+}
