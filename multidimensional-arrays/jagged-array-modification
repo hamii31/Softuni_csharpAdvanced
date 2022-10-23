@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Multidimensional_Arrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var rows = int.Parse(Console.ReadLine());
+            int[][] jaggedArray = new int[rows][];
+            for (int row = 0; row < rows; row++)
+            {
+                var columns = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                jaggedArray[row] = columns;
+            }
+            var command = string.Empty;
+            while (command != "END")
+            {
+                var input = Console.ReadLine().Split();
+                command = input[0];
+                
+                if (command == "Add")
+                {
+                    var row = Convert.ToInt32(input[1]);
+                    var col = Convert.ToInt32(input[2]);
+                    var value = Convert.ToInt32(input[3]);
+                    if (row < 0 || row >= jaggedArray.Length || col < 0 || col >= jaggedArray.Length)
+                    {
+                        Console.WriteLine("Invalid coordinates");
+                    }
+                    else
+                    {
+                        jaggedArray[row][col] += value;
+                    }
+                }
+                else if (command == "Subtract")
+                {
+                    var row = Convert.ToInt32(input[1]);
+                    var col = Convert.ToInt32(input[2]);
+                    var value = Convert.ToInt32(input[3]);
+                    if (row < 0 || row >= jaggedArray.Length || col < 0 || col >= jaggedArray.Length)
+                    {
+                        Console.WriteLine("Invalid coordinates");
+                    }
+                    else
+                    {
+                        jaggedArray[row][col] -= value;
+                    }
+                }
+            }
+            foreach (int[] row in jaggedArray)
+            {
+                Console.WriteLine(string.Join(" ", row));
+            }
+        }
+    }
+}
