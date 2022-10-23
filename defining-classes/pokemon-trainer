@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace PokemonTrainer
+{
+    public class StartUp
+    {
+        static void Main(string[] args)
+        {
+            var trainers = new List<Trainer>();
+
+            while (true)
+            {
+                string command = Console.ReadLine();
+
+                if (command == "Tournament")
+                {
+                    break;
+                }
+
+                string[] tokens = command.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                Trainer trainer = trainers.SingleOrDefault(t => t.Name == tokens[0]);
+
+                if (trainer == null)
+                {
+                    trainer = new Trainer(tokens[0]);
+                    trainer.Pokemons.Add(new Pokemon(tokens[1], tokens[2], int.Parse(tokens[3])));
+                    trainers.Add(trainer);
+                }
+                else
+                {
+                    trainer.Pokemons.Add(new Pokemon(tokens[1], tokens[2], int.Parse(tokens[3])));
+                }
+            }
+
+            while (true)
+            {
+                string command = Console.ReadLine();
+
+                if (command == "End")
+                {
+                    break;
+                }
+
+                foreach (var trainer in trainers)
+                {
+                    trainer.CheckPokemon(command);
+                }
+            }
+
+            foreach (var trainer in trainers.OrderByDescending(c => c.NumberOfBadges))
+            {
+                Console.WriteLine($"{trainer.Name} {trainer.NumberOfBadges} {trainer.Pokemons.Count}");
+            }
+        }
+        
+    }
+    public class Pokemon
+    {
+        public string PokemonName { get; set; }
+        public string Element { get; set; }
+        public int Health { get; set; }
+        public List<Pokemon> pokemons;
+        public Pokemon(string name, string element, int health)
+        {
+            PokemonName = name;
+            Element = element;
+            Health = health;
+        }
+       
+    }
+    public class Trainer
+    {
+        public Trainer(string name)
+        {
+            Name = name;
+            Pokemons = new List<Pokemon>();
+        }
+
+        public string Name { get; set; }
+
+        public int NumberOfBadges { get; set; }
+
+        public List<Pokemon> Pokemons { get; set; }
+
+        public void CheckPokemon(string element)
+        {
+            if (this.Pokemons.Any(p => p.Element == element))
+            {
+                NumberOfBadges++;
+            }
+            else
+            {
+                for (int i = 0; i < this.Pokemons.Count; i++)
+                {
+                    Pokemon currentPokemon = this.Pokemons[i];
+
+                    currentPokemon.Health -= 10;
+
+                    if (currentPokemon.Health <= 0)
+                    {
+                        this.Pokemons.Remove(currentPokemon);
+                    }
+                }
+            }
+        }
+
+    }
+}
