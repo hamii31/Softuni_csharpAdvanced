@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace maximal_sum
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var size = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(n => int.Parse(n)).ToArray();
+            int rows = size[0], cols = size[1];
+            var matrix = new int[rows, cols];
+
+            for (int row = 0; row < rows; row++)
+            {
+                var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(n => int.Parse(n)).ToArray();
+                for (int col = 0; col < cols; col++)
+                {
+                    matrix[row, col] = input[col];
+                }
+            }
+            var biggestSum = int.MinValue;
+            var submatrix = new int[3, 3];
+            var smNums = new Queue<int>();
+            for (int i = 0; i < rows - 2; i++)
+            {
+                for (int j = 0; j < cols - 2; j++)
+                {
+                    var newSum = matrix[i, j] + matrix[i, j + 1] + matrix[i, j + 2] +
+                                       matrix[i + 1, j] + matrix[i + 1, j + 1] + matrix[i + 1, j + 2] +
+                                       matrix[i + 2, j] + matrix[i + 2, j + 1] + matrix[i + 2, j + 2];
+                    if (newSum > biggestSum)
+                    {
+                        biggestSum = newSum;
+                        if (smNums.Count == 0)
+                        {
+                            smNums.Enqueue(matrix[i, j]);
+                            smNums.Enqueue(matrix[i, j + 1]);
+                            smNums.Enqueue(matrix[i, j + 2]);
+                            smNums.Enqueue(matrix[i + 1, j]);
+                            smNums.Enqueue(matrix[i + 1, j + 1]);
+                            smNums.Enqueue(matrix[i + 1, j + 2]);
+                            smNums.Enqueue(matrix[i + 2, j]);
+                            smNums.Enqueue(matrix[i + 2, j + 1]);
+                            smNums.Enqueue(matrix[i + 2, j + 2]);
+                        }
+                        else
+                        {
+                            for (int f  = 0; f < 9; f++)
+                            {
+                                smNums.Dequeue();
+                            }
+                            smNums.Enqueue(matrix[i, j]);
+                            smNums.Enqueue(matrix[i, j + 1]);
+                            smNums.Enqueue(matrix[i, j + 2]);
+                            smNums.Enqueue(matrix[i + 1, j]);
+                            smNums.Enqueue(matrix[i + 1, j + 1]);
+                            smNums.Enqueue(matrix[i + 1, j + 2]);
+                            smNums.Enqueue(matrix[i + 2, j]);
+                            smNums.Enqueue(matrix[i + 2, j + 1]);
+                            smNums.Enqueue(matrix[i + 2, j + 2]);
+                        }
+                    }
+
+                }
+            }
+            Console.WriteLine("Sum = " + biggestSum);
+            for (int r = 0; r < 3; r++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    Console.Write("{0} ", submatrix[r, c] = smNums.Dequeue());
+                }
+                Console.WriteLine();
+            }            
+        }
+    }
+}
