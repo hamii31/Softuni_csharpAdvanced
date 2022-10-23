@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace SFD
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var wordPath = @"..\..\..\Files\words.txt";
+            var textPath = @"..\..\..\Files\text.txt";
+            var outputPath = @"..\..\..\Files\output.txt";
+
+            CalculateWordCounts(wordPath, textPath, outputPath);
+        }
+
+        private static void CalculateWordCounts(string wordPath, string textPath, string outputPath)
+        {
+            using (var wordreader = new StreamReader(wordPath))
+            {
+                using (var textReader = new StreamReader(textPath))
+                {
+                    using (var writer = new StreamWriter(outputPath))
+                    {
+                       
+                        var words = new List<string>();
+                        while (!wordreader.EndOfStream)
+                        {
+                            var lines = wordreader.ReadLine();
+                            var word = lines.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                            foreach (var item in word)
+                            {
+                                words.Add(item);
+                            }
+                        }
+                        var count = new Dictionary<string, int>();
+                     
+                        while (!textReader.EndOfStream)
+                        {
+                            var line = textReader.ReadLine();
+                            if (String.IsNullOrEmpty(line))
+                            {
+                                continue;
+                            }
+                            for (int i = 0; i < words.Count; i++)
+                            { 
+                                if (line.IndexOf(words[i], StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                {
+                                    if (count.ContainsKey(words[i]))
+                                    {
+                                        count[words[i]]++;
+                                    }
+                                    else
+                                    {
+                                        count[words[i]] = 1;
+                                    }
+                                }
+                            }
+                        }
+
+                        var myList = count.ToList();
+
+                        myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+                        foreach (var item in myList)
+                        {
+                            Console.WriteLine($"{item.Key} - {item.Value}");
+                            writer.WriteLine($"{item.Key} - {item.Value}");
+                        }
+                       
+                    }
+                }
+            }
+        }
+    }
+}
