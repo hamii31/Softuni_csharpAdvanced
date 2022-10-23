@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SetsAndDictionaaries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var guests = new HashSet<string>();
+            while (true)
+            {
+                var input = Console.ReadLine();
+                guests.Add(input);
+                if (input == "PARTY")
+                {
+                    while (input != "END")
+                    {
+                        input = Console.ReadLine();
+                        guests.Remove("PARTY");
+                        if (guests.Contains(input))
+                        {
+                            guests.Remove(input);
+                        }
+                        if (input == "END")
+                        {
+                            break;
+                        }
+                    }
+                    break;
+
+                }
+                 
+            }
+            var list = new List<string>(guests);
+            list = list.OrderBy(n => n.StartsWith(@"^\d+$")).ToList<string>();
+            guests = list.ToHashSet<string>();
+            Console.WriteLine(guests.Count);
+            foreach (var item in guests)
+            {
+                Console.WriteLine(item);
+            }
+            
+        }   
+    }
+}
